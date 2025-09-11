@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+  Options -MultiViews
+  RewriteEngine On
+  RewriteBase /test/
+
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Pass path to index.php as __url (more robust across hosts)
+  DirectoryIndex index.php
+  RewriteRule ^(.*)$ index.php?__url=$1 [QSA,L]
+</IfModule>
